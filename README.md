@@ -1,27 +1,27 @@
-# Aamayra / LeadPilot
+# LeadPilot AI — MVP
 
-AI real-estate lead management and WhatsApp sales assistant.
+AI WhatsApp sales assistant for real-estate brokers.
 
 ## Stack
 - Next.js + TypeScript
-- OpenAI Responses API
 - PostgreSQL/Supabase
+- OpenAI Responses API
 - WhatsApp Cloud API
 
-## Deploy
-1. Upload the project files to the root of the GitHub repository.
-2. Import the repository into Vercel.
-3. Set the environment variables from `.env.example` in Vercel.
-4. Deploy.
+## Quick start
+1. Copy `.env.example` to `.env.local`
+2. Fill in credentials.
+3. `npm install`
+4. `npm run dev`
 
-The root `app/page.tsx` is the homepage, so `/` should render the dashboard rather than a 404.
+The WhatsApp webhook is intentionally a starter implementation. Before production, verify webhook signatures, validate payloads, add authentication/rate limiting, and use the current Graph API version supported by Meta.
 
-## Environment variables
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL` (optional)
-- `WHATSAPP_ACCESS_TOKEN`
-- `WHATSAPP_PHONE_NUMBER_ID`
-- `WHATSAPP_VERIFY_TOKEN`
-- `WHATSAPP_GRAPH_VERSION` (optional)
 
-Never commit real API keys or tokens.
+## Production checklist
+- Replace `vXX.X` in `lib/whatsapp.ts` with the Meta Graph API version currently supported by your WhatsApp Cloud API app.
+- Configure and verify the WhatsApp webhook in Meta Business Manager.
+- Implement Meta webhook signature verification before enabling automatic replies.
+- Add authentication/authorization around dashboard and API routes.
+- Add idempotency for WhatsApp message IDs.
+- Store secrets only in server-side environment variables.
+- Add rate limits, logging, retries, error monitoring, and database migrations.
